@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<header class="home-header">
+    <h1>Welcome to the Home Page</h1>
+    <p>A secure and user-friendly authentication system</p>
+</header>
+
+<div class="features-container">
+    <li class="feature-item">✓ Secure User Authentication</li>
+    <li class="feature-item">✓ Profile Management</li>
+    <li class="feature-item">✓ Password Recovery System</li>
+    <li class="feature-item">✓ Enhanced Security Measures</li>
+
+    <div class="home-actions">
+        {% if not session.get('Username_Login') %}
+            <a href="{{ url_for('main.login') }}" class="edit-btn">Login</a>
+            <a href="{{ url_for('main.signup') }}" class="edit-btn">Sign Up</a>
+        {% else %}
+            <a href="{{ url_for('main.user_dashboard') }}" class="edit-btn">Go to Dashboard</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

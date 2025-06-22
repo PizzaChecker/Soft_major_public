@@ -1,0 +1,18 @@
+<!-- <div class="container mt-5"> Moved to products.html to avoid be space in home page under best sellers -->
+<div class="row mb-4">
+    {% for product in products %}
+        <div class="col-md-3">
+            <a href="/product/{{ product['id'] }}" class="text-decoration-none text-dark">
+                <div class="product-card p-3 rounded h-100" style="background-color: #f8f9fa; border: 1px solid #ddd; transition: box-shadow 0.2s;">
+                    <img src="{{ url_for('static', filename='watch_img/watch' + product['id']|string + '.png') }}" alt="{{ product['name'] }}" class="img-fluid rounded">
+                    <h5 class="mt-2">{{ product['name'] }}</h5>
+                    <p class="text-muted">${{ "%.2f"|format(product['price']) }}</p>
+                </div>
+            </a>
+        </div>
+        {% if loop.index % 4 == 0 and not loop.last %}
+            </div><div class="row mb-4">
+        {% endif %}
+    {% endfor %}
+</div>
+<!-- </div> -->

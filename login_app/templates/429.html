@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="alert alert-warning">
+                <h1 class="display-4 mb-4">Rate Limit Exceeded</h1>
+                <p class="lead mb-3">You have made too many requests. Please wait for {{ reset_time }} before trying again.</p>
+                <a href="{{ url_for('index') }}" class="btn btn-primary">Return Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

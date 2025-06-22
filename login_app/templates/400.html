@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}Bad Request{% endblock %}
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="alert alert-danger">
+                <h1 class="display-4 mb-4">Bad Request</h1>
+                <p class="lead text-danger mb-3">{{ error }}</p>
+                <p class="mb-4">The request could not be processed due to invalid parameters.</p>
+                <a href="{{ url_for('index') }}" class="btn btn-primary">Return to home page</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}Method Not Allowed{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="alert alert-warning">
+                <h1 class="display-4 mb-4">Method Not Allowed</h1>
+                <p class="lead mb-3">The method you are trying to use is not allowed for this URL.</p>
+                <a href="{{ url_for('index') }}" class="btn btn-primary">Go home instead</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

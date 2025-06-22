@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block title %}{{ category_name | format_category }}{% endblock %}
+{% block content %}
+
+<header class="category-header">
+    <h1>{{ category_name | format_category }}</h1>
+</header>
+
+<div class="container mt-5">
+    {% if products %}
+        {% include 'prod.html' %}
+    {% else %}
+        <p>No products found in this category.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

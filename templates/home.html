@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<header class="home-header">
+    <div class="container">
+        <div class="text-center">
+            <h1 class="display-4 fw-bold text-dark mb-3">Welcome to the Home Page</h1>
+            <p class="lead text-secondary mb-0">A secure and user-friendly watch site</p>
+        </div>
+    </div>
+</header>
+
+<section class="container mb-5">
+    <h2 class="text-center display-6 fw-bold mb-4">Categories</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <a href="{{ url_for('category', category_name='5_Sports') }}" class="category-box">
+                <img src="{{ url_for('static', filename='watch_img/5_sports.jpg') }}" alt="5 Sports" class="img-fluid rounded shadow-sm">
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{{ url_for('category', category_name='astron') }}" class="category-box">
+                <img src="{{ url_for('static', filename='watch_img/astron.jpg') }}" alt="Astron" class="img-fluid rounded shadow-sm">
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{{ url_for('category', category_name='prospex') }}" class="category-box">
+                <img src="{{ url_for('static', filename='watch_img/prospex.jpg') }}" alt="Prospex" class="img-fluid rounded shadow-sm">
+            </a>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <hr class="w-75 mx-auto opacity-25 mb-5">
+    <h2 class="text-center display-6 fw-bold mb-4">Best Sellers</h2>
+    {% include 'prod.html' %}
+</div>
+
+{% endblock %}

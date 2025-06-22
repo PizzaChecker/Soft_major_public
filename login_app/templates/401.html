@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}Error{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="alert alert-warning">
+                {% if error == "Unauthorised access" %}
+                    <h1 class="display-4 mb-4">Unauthorised Access</h1>
+                    <p class="lead mb-3">You currently do not have permission to access this page.</p>
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">Go home instead</a>
+
+                {% elif error == "Access is forbidden" %}
+                    <h1 class="display-4 mb-4">Access is Forbidden</h1>
+                    <p class="lead mb-3">You are currently not permitted to access this page.</p>
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">Go home instead</a>
+
+                {% else %}
+                    <h1 class="display-4 mb-4">Something went wrong</h1>
+                    <p class="lead mb-3">An unexpected error occurred. Please try again later.</p>
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">Go home instead</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
