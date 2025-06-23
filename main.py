@@ -16,12 +16,7 @@ from func.order_history import order_his
 from func.product_display import base_prod_display, prod_detail, category_display
 
 from jinja2 import ChoiceLoader, FileSystemLoader
-from datetime import datetime
-from models import Order
 from db_manager import db_manager
-from sqlalchemy.exc import OperationalError
-import time
-import uuid
 import sys
 from flask import jsonify
 
@@ -46,7 +41,7 @@ app.jinja_loader = ChoiceLoader([
 
 # Configure static files
 app.static_folder = 'login_app/static'
-app.static_url_path = '/static'
+# app.static_url_path = '/static'
 
 # Static file handler for the second static folder
 @app.route('/extra_static/<path:filename>')
@@ -73,7 +68,6 @@ def create_app(): # Does not need expection as handled in startup, tested*
     )
 
     # Initialise extensions
-    # db.init_app(app)
     csrf = CSRFProtect(app)
     limiter = init_limiter(app)
     
@@ -84,7 +78,7 @@ def create_app(): # Does not need expection as handled in startup, tested*
 
 @app.before_request # This function runs before every request, 
 def before_request():
-    try:# WORKS BUT NEEDS REVIEWING
+    try:
         # Check session timeout before each request.
         if check_session_timeout():
             return redirect_directions() # Redirects to slected page if session expired
@@ -140,7 +134,7 @@ def set_security_headers(response):
     }
 )
 def index():
-    best_sellers = [1,3,4,5]  # Placeholder for best sellers, can't be fetched from the database*********************
+    best_sellers = [1,3,4,5]
     try: # tested*
         with db_manager.get_db() as conn:
             cur = conn.cursor()
@@ -161,7 +155,7 @@ def products():
 def product_detail(product_id):
     return prod_detail(product_id)
 
-@app.route("/category/<category_name>") # Check if can make template section reuseabale
+@app.route("/category/<category_name>")
 def category(category_name):
     return category_display(category_name)
 
@@ -188,6 +182,7 @@ def cart_remove_one_ajax():
 def cart_delete_ajax():
     return ajax_cart_delete()
 
+# AJAX: Clear the entire cart
 @app.route("/cart/clear", methods=["POST"])
 def cart_clear():
     return clear_cart()

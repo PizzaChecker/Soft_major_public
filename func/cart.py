@@ -55,7 +55,7 @@ def cart_add(product_id):
 
         # Check stock before adding to cart
         try: # tested*
-            if not exceds_stock(product_id_str, cart, quantity):
+            if not exceds_stock(product_id_str, cart, quantity): # Check stock level
                 return redirect(url_for("product_detail", product_id=product_id))
         except Exception as e:
             app_log.error(f"Error checking stock: {e}", exc_info=True)
@@ -80,8 +80,8 @@ def cart_add(product_id):
 def ajax_cart_add():
     try: # tested*
         if not request.is_json:
-            return jsonify(success=False, message="Invalid request format"), 400
-        data = request.get_json()
+            return jsonify(success=False, message="Invalid request format"), 400 # Check if request is JSON
+        data = request.get_json() # Get JSON data from request
         product_id = str(data.get("product_id"))
         quantity = int(data.get("quantity", 1))
         cart = session.get("cart", {})
@@ -109,14 +109,14 @@ def ajax_cart_remove():
         if not request.is_json: # Should not run into this, but just in case
             app_log.warning("Invalid request format for AJAX cart remove")
             return jsonify(success=False, message="Invalid request format"), 400
-        data = request.get_json()
+        data = request.get_json() # Get JSON data from request
         product_id = str(data.get("product_id"))
         cart = session.get("cart", {})
         if product_id in cart:
             if cart[product_id] > 1:
                 cart[product_id] -= 1
                 session["cart"] = cart
-                return jsonify(success=True, message="Removed one from cart", quantity=cart[product_id])
+                return jsonify(success=True, message="Removed one from cart", quantity=cart[product_id]) # Return updated quantity
             else:
                 del cart[product_id]
                 session["cart"] = cart
@@ -126,7 +126,8 @@ def ajax_cart_remove():
         app_log.error(f"Error removing product from cart via AJAX: {e}", exc_info=True)
         return jsonify(success=False, message="An error occurred while removing product from cart"), 500
 
-def ajax_cart_delete():
+# /cart/delete route for AJAX requests delete all of product from cart
+def ajax_cart_delete(): # clear cart
     try: # tested*
         if not request.is_json:  # Should not run into this, but just in case
             app_log.warning("Invalid request format for AJAX cart delete")
@@ -142,6 +143,18 @@ def ajax_cart_delete():
     except Exception as e:
         app_log.error(f"Error deleting product from cart via AJAX: {e}", exc_info=True)
         return jsonify(success=False, message="An error occurred while deleting product from cart"), 500
+
+# /cart/clear route, clears the cart
+def clear_cart():
+    try:
+        session.pop("cart", None)
+        flash("Cart has been cleared.", "success")
+        app_log.info("Cart cleared for user.")
+        return redirect(url_for("cart"))
+    except Exception as e:
+        app_log.error(f"Error clearing cart: {e}", exc_info=True)
+        flash("An error occurred while clearing your cart. Please try again later.", "error")
+        return redirect(url_for("cart"))
 
 
 # Non-main processing routes
@@ -178,14 +191,3 @@ def exceds_stock(product_id, cart, quantity):
     except Exception as e:
         app_log.error(f"Error checking stock for product {product_id}: {e}", exc_info=True)
         raise e
-
-def clear_cart():
-    try:
-        session.pop("cart", None)
-        flash("Cart has been cleared.", "success")
-        app_log.info("Cart cleared for user.")
-        return redirect(url_for("cart"))
-    except Exception as e:
-        app_log.error(f"Error clearing cart: {e}", exc_info=True)
-        flash("An error occurred while clearing your cart. Please try again later.", "error")
-        return redirect(url_for("cart"))

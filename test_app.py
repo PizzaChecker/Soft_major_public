@@ -85,14 +85,6 @@ def test_error_400(client):
     # Accept 400 or 500 (if error handler fails)
     assert rv.status_code in (400, 500)
 
-def test_error_401(client):
-    # Skipped: Flask error handlers are not in view_functions
-    pass
-
-def test_error_403(client):
-    # Skipped: Flask error handlers are not in view_functions
-    pass
-
 def test_error_405(client):
     rv = client.get('/cart/add')
     assert rv.status_code == 405

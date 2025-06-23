@@ -13,7 +13,6 @@
                     {% for item in cart_items %}
                     <div class="row align-items-center border-bottom p-3 mx-0" data-product-id="{{ item.product.id }}">
                         <div class="col-3 col-md-2 px-0">
-                            <!-- Placeholder image, replace src with actual product image if available -->
                             <img src="{{ url_for('static', filename='watch_img/watch' + item.product.id|string + '.png') }}" class="img-fluid rounded" alt="{{ item.product.name }}">
                         </div>
                         <div class="col-9 col-md-3">
@@ -60,14 +59,6 @@
                         <span>${{ "%.2f"|format(item.product.price * item.quantity) }}</span>
                     </div>
                     {% endfor %}
-                    <!-- End product totals -->
-                    
-                    <!-- Commented out subtotal as there are no discounts or shiping fees, etc -->
-                    <!-- <div class="d-flex justify-content-between mb-2">
-                        <span class="fw-semibold">Subtotal </span>
-                        <span class="fw-semibold">${{ "%.2f"|format(total_price) }}</span>
-                    </div> -->
-
                     <hr>
                     <div class="d-flex justify-content-between mb-3">
                         <span class="fw-bold">Total</span>

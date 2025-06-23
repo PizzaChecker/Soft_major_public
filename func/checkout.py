@@ -72,19 +72,19 @@ def checkout_func():
                     # Update stock and create orders
                     with db_manager.get_db() as conn:
                         cur = conn.cursor()
-                        receipt_id = str(uuid.uuid4())                            # Create OrderItem first
+                        receipt_id = str(uuid.uuid4()) # Generate a unique receipt ID
                         for item in order_items:
                             order_item = OrderItem(
                                 receipt_id=receipt_id,
                                 product_id=item['product_id'],
                                 quantity=item['quantity'],
                                 price=item['price'],
-                                total_item_price=item['total']  # We already calculated this as 'total' earlier
+                                total_item_price=item['total']
                             )
                             db_session.add(order_item)
                         
                         # Get current time in AEST
-                        aest = pytz.timezone('Australia/Sydney')
+                        aest = pytz.timezone('Australia/Sydney') # Used to get the current time in AEST
                         current_aest_time = datetime.now(aest)
 
                         # Create single order for all items
@@ -99,7 +99,7 @@ def checkout_func():
                         db_session.add(order)
 
                         # Update stock using raw SQL
-                        for item in order_items:
+                        for item in order_items: # Update stock for each item
                             cur.execute(
                                 "UPDATE products SET stock = stock - ? WHERE id = ?",
                                 (item['quantity'], item['product_id'])

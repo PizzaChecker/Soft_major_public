@@ -32,7 +32,7 @@ def order_his():
                     # Parse the date string with microseconds
                     try:
                         order_date = datetime.strptime(row['order_date'], '%Y-%m-%d %H:%M:%S.%f')
-                    except Exception as e:
+                    except Exception as e: # Fallback for error retriving date
                         time_error = True
                         app_log.error(f"Error parsing order date & time: {e}", exc_info=True)
                         order_date = datetime.strptime('2025-01-01 00:00:00.000000', '%Y-%m-%d %H:%M:%S.%f')
@@ -41,7 +41,7 @@ def order_his():
                         row['name'],  # product name
                         row['quantity'],
                         row['total_item_price'],  # using item total price instead of order total
-                        order_date,  # now a datetime object
+                        order_date,  # datetime object
                         row['status'],
                         row['receipt_id']
                     ))

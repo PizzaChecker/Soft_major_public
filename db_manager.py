@@ -9,11 +9,17 @@ from sqlalchemy.exc import OperationalError
 logger = logging.getLogger(__name__)
 
 class DatabaseManager:
+    """
+    Manages both raw SQLite connections and SQLAlchemy sessions for database operations.
+    Provides thread-safe access and context managers for both connection types.
+    """
     def __init__(self, db_path):
+        # Store the path to the SQLite database file
         self.db_path = db_path
+        # Lock to ensure thread-safe access to SQLite connections
         self.sqlite_lock = Lock()
         try:
-            # Configure SQLAlchemy engine
+            # Configure SQLAlchemy engine for ORM operations
             self.engine = create_engine(
                 f'sqlite:///{db_path}',
                 connect_args={
@@ -22,7 +28,7 @@ class DatabaseManager:
                     'isolation_level': 'IMMEDIATE'
                 }
             )
-            
+            # Create a scoped session factory for SQLAlchemy sessions
             self.Session = scoped_session(sessionmaker(bind=self.engine))
         except OperationalError as e:
             logger.error(f"SQLAlchemy engine creation error: {e}")
@@ -30,14 +36,20 @@ class DatabaseManager:
 
     @contextmanager
     def get_db(self):
+        """
+        Context manager for a raw SQLite connection.
+        Ensures thread safety and proper cleanup.
+        """
         conn = None
         try:
             with self.sqlite_lock:
+                # Open a new SQLite connection with the specified settings
                 conn = sqlite3.connect(
                     self.db_path,
                     timeout=5,
                     isolation_level='IMMEDIATE'
                 )
+                # Return rows as dictionaries for easier access
                 conn.row_factory = sqlite3.Row
                 yield conn
         except sqlite3.Error as e:
@@ -59,6 +71,10 @@ class DatabaseManager:
 
     @contextmanager
     def get_session(self):
+        """
+        Context manager for a SQLAlchemy session.
+        Handles commit/rollback and ensures session cleanup.
+        """
         session = self.Session()
         try:
             yield session
@@ -78,10 +94,12 @@ class DatabaseManager:
             self.Session.remove()
 
     def __del__(self):
+        # Dispose of the SQLAlchemy engine when the manager is deleted
         if hasattr(self, 'engine'):
             try:
                 self.engine.dispose()
             except Exception as e:
                 logger.error(f"Error disposing engine: {e}")
 
+# Create a global instance of DatabaseManager for use throughout the application
 db_manager = DatabaseManager('login_app/database.db')

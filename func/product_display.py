@@ -10,11 +10,11 @@ def base_prod_display():# Fetch product details for all products
     try: # tested*
         product_list = []
         try: #tested*
-            with db_manager.get_db() as conn:
+            with db_manager.get_db() as conn: # Get a database connection
                 cur = conn.cursor()
                 cur.execute("SELECT * FROM products")
                 products = cur.fetchall()
-                product_list = [dict(product) for product in products]
+                product_list = [dict(product) for product in products] # Convert each row to a dictionary (CODE OPTIMISATION)
         except Exception as e:
             app_log.error(f"Database error: {e}", exc_info=True)
             flash("An error occurred while loading products, please try again later", "error")
@@ -47,7 +47,7 @@ def category_display(category_name):# Fetch products for the given category
             cur = conn.cursor()
             cur.execute("SELECT * FROM products WHERE category = ?", (category_name,))
             products = cur.fetchall()
-            product_list = [dict(product) for product in products]
+            product_list = [dict(product) for product in products] # Code Optimastion
         return render_template("category.html", category_name=category_name, products=product_list)
     except Exception as e:
         app_log.error(f"Database error: {e}", exc_info=True)

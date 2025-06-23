@@ -8,8 +8,7 @@ from werkzeug.utils import secure_filename
 logger = logging.getLogger(__name__)
 
 UPLOAD_FOLDER = 'static/uploads'  # Directory to save uploaded files
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Ensure the upload folder exists
-
+# os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Ensure the upload folder exists Removed this as kept creating unused folder, used elsewhere
 
 def form_signup():
     if request.method == "GET" and request.args.get("url"): # dont realy know what this does

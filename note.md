@@ -15,10 +15,11 @@ See if i can make it so orders
 FIX UP TIME
 Error on line 10 in JS still works tho
 Fix order date
+*Done
 
 Is one example for code optimisation fine?
 Find out what this is:
 2025-06-04 19:04:14,185 Page not found: /.well-known/appspecific/com.chrome.devtools.json by 127.0.0.1.***Occurs beacuse somehtibg like Chrome DevTools tired acseeing the route which is used to check for debugging or configuration files.
-Fix y being not included in box in signup
-Find a way to get rid of static/uploads route from get created
-See if i can add more than 1 order id in one db entry
+Fix y being not included in box in signup * Done
+Find a way to get rid of static/uploads route from get created * Done
+See if i can add more than 1 order id in one db entry *Done

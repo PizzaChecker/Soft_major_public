@@ -1,3 +1,7 @@
+**Disclaimer:**  
+This project is for educational purposes only. Do not use it in production environments without proper security review and testing. The author(s) are not responsible for any misuse or damages resulting from the use of this code.
+
+**Contains un-licensed copyright material (images)**
 ### Environment Setup
 
 1. **Create a virtual environment**:
@@ -31,8 +35,14 @@
 5. **Set environment variables**:
    Add the following environment variables (replace `put_secret_key_here` with your actual secret keys):
    ```powershell
-   $env:VSCODE_DOM="put_secret_key_here" (1)
+   Windows
+   $env:VSCODE_DOM="put_secret_key_here" (1) 
    $env:VSCODE_SK_='put_secret_key_here' (2)
+   ```
+   ```zsh
+   Mac (Unsure if works)
+   export VSCODE_DOM="put_secret_key_here"   
+   export VSCODE_SK_="put_secret_key_here"
    ```
    Example values:
    ```
@@ -58,6 +68,9 @@
    pip install pytest
    pip install sqlalchemy
    pip install pytz
+   pip install requests
+   pip install werkzeug (Should be included with flask)
+   pip install jinja2 (Should be included with flask)
    ```
 
 8. **Verify installation**:

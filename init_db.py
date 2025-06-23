@@ -3,7 +3,7 @@ import os
 
 DATABASE_PATH = os.path.join(os.path.dirname(__file__), 'login_app/database.db')
 SCHEMA_PATH = os.path.join(os.path.dirname(__file__), 'schema1.sql')
-
+# Intilises DB, DOSE NOT INPUT PRODUCTS, USE input_products.py FOR THAT!!!!!!!!!!!!!!!!
 def init_db():
     try:
         # Establish a connection to the SQLite database

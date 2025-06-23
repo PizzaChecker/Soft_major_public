@@ -1,6 +1,6 @@
 import sqlite3
 import os
-
+# Used to add products to the database
 DATABASE_PATH = os.path.join(os.path.dirname(__file__), 'login_app/database.db')
 
 def input_prod():
@@ -69,5 +69,5 @@ def bulk_insert_products():
             connection.close()
 
 if __name__ == '__main__':
-    # input_prod()
-    bulk_insert_products()
+    input_prod() # If you want to add a single product manually, however need to add images with correct filename in correct path
+    bulk_insert_products() # Run this like once to bulk insert products
