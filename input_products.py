@@ -69,5 +69,5 @@ def bulk_insert_products():
             connection.close()
 
 if __name__ == '__main__':
-    input_prod() # If you want to add a single product manually, however need to add images with correct filename in correct path
+    # input_prod() # If you want to add a single product manually, however need to add images with correct filename in correct path
     bulk_insert_products() # Run this like once to bulk insert products

@@ -67,6 +67,7 @@ This project is for educational purposes only. Do not use it in production envir
    pip install Flask-Limiter
    pip install pytest
    pip install sqlalchemy
+   pip install flask_sqlalchemy
    pip install pytz
    pip install requests
    pip install werkzeug (Should be included with flask)
@@ -77,6 +78,18 @@ This project is for educational purposes only. Do not use it in production envir
    Ensure all packages are installed correctly by running:
    ```bash
    pip list
+   ```
+
+9. **Intilise DB & Input Products**:
+   Create the DB by running init_db.py
+   Then insert the defualt products into the database, comment out the line at the bottom where it says (if not alredy done):
+   ```bash
+   if __name__ == '__main__':
+      input_prod() 
+	```
+   So it only runs
+   ```bash
+   bulk_insert_products()
    ```
 
 ### Notes
