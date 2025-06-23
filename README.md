@@ -1,6 +1,8 @@
 **Disclaimer:**  
 This project is for educational purposes only. Do not use it in production environments without proper security review and testing. The author(s) are not responsible for any misuse or damages resulting from the use of this code.
 
+If any part of the project donsen't work it may be because of improper transfering of files done by me. If this occured please contact me and I will try to rectify the issue.
+
 **Contains un-licensed copyright material (images)**
 ### Environment Setup
 
